@@ -1,4 +1,4 @@
-package com.udl.softarch.springexample.filters;
+package cat.udl.iaeste.intraweb.filters;
 
 import org.springframework.stereotype.Component;
 
