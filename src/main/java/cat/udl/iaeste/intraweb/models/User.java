@@ -28,12 +28,6 @@ public class User {
     @NotBlank(message = "Email cannot be blank")
     @Email(message = "Email shoud be valid")
     private String email;
-    
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<Work> works = new ArrayList<>();
-
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<Nomination> nominations = new ArrayList<>();
 
     @NotBlank(message = "This field cannot be blank")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)

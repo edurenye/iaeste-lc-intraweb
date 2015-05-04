@@ -1,7 +1,6 @@
 package cat.udl.iaeste.intraweb.repositories;
 
 import cat.udl.iaeste.intraweb.models.Company;
-import cat.udl.iaeste.intraweb.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 

@@ -3,6 +3,7 @@ package cat.udl.iaeste.intraweb.models;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.jws.soap.SOAPBinding;
 import javax.persistence.*;
 
 /**
@@ -11,11 +12,12 @@ import javax.persistence.*;
 @Entity
 public class Nomination {
 
-    @javax.persistence.Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
-    @NotEmpty(message = "This field cannot be blank")
-    private User worker;
+    @NotEmpty
+    @ManyToOne
+    private User nominated;
 
 }

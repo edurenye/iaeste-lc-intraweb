@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 public class Work {
 
-    @javax.persistence.Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
@@ -18,10 +18,7 @@ public class Work {
 
     private boolean finished = false;
 
-    @NotEmpty(message = "This field cannot be blank")
+    @ManyToOne
     private User worker;
-
-    @NotEmpty(message = "This field cannot be blank")
-    private Delegate delegate;
 
 }
