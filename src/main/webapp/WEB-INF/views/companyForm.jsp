@@ -45,5 +45,18 @@
             </tr>
         </table>
     </form:form>
+
+    <form:form method="GET" action="results" modelAttribute="company">
+        <table>
+            <tr>
+                <td><form:label path="name">Search company by name</form:label></td>
+                <td><form:input path="name"/> <i><form:errors path="name"></form:errors></i></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Submit" /></td>
+            </tr>
+        </table>
+    </form:form>
+
 </body>
 </html>

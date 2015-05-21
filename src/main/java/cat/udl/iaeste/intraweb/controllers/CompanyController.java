@@ -2,6 +2,9 @@ package cat.udl.iaeste.intraweb.controllers;
 
 import cat.udl.iaeste.intraweb.models.Company;
 import cat.udl.iaeste.intraweb.repositories.CompanyRepository;
+import cat.udl.iaeste.intraweb.services.XQueryHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -14,6 +17,8 @@ import com.google.common.base.Preconditions;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by eduard on 27/04/15.
@@ -21,6 +26,7 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/companies")
 public class CompanyController {
+    final Logger logger = LoggerFactory.getLogger(CompanyController.class);
 
     @Autowired
     CompanyRepository companyRepository;
@@ -72,7 +78,7 @@ public class CompanyController {
     @RequestMapping(value = "/form", method = RequestMethod.GET, produces = "text/html")
     public ModelAndView createForm() {
         Company emptyCompany = new Company();
-        return new ModelAndView("form", "company", emptyCompany);
+        return new ModelAndView("companyForm", "company", emptyCompany);
     }
 
     // UPDATE
@@ -100,7 +106,7 @@ public class CompanyController {
     // Update form
     @RequestMapping(value = "/{id}/form", method = RequestMethod.GET, produces = "text/html")
     public ModelAndView updateForm(@PathVariable("id") Long id) {
-        return new ModelAndView("form", "company", companyRepository.findOne(id));
+        return new ModelAndView("companyForm", "company", companyRepository.findOne(id));
     }
 
     // DELETE
@@ -116,4 +122,24 @@ public class CompanyController {
         delete(id);
         return "redirect:/companies";
     }
+
+    // SEARCH
+    @RequestMapping(value = "/results", method = RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView search(@RequestParam(required=true) String name)throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+        logger.info("film search with content'{}'", name);
+        List<Company> c = new ArrayList<>();
+        if(companyRepository.findCompanyByName(name) == null){
+            XQueryHelper x = new XQueryHelper(name);
+            c = x.getCompanies();
+            System.out.println(c.get(0).getName());
+            for(Company company:c){
+                companyRepository.save(company);
+            }
+        } else {
+            c.add(companyRepository.findCompanyByName(name));
+        }
+        return new ModelAndView("companyResults", "company", c);
+    }
+
 }
