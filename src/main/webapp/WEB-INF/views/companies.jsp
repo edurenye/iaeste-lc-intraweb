@@ -7,21 +7,27 @@
   Time: 15:27
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Companies</title>
-</head>
-<body>
-    <ul>
-        <c:if test="${not empty companies}">
-            <c:forEach var="company" items="${companies}">
-                <li>
-                    <a href="/companies/${company.getId()}">${company.getId()}</a>: ${fn:escapeXml(company.getName())} <a href="/companies/${company.getId()}/form">Edit company</a>
-                </li>
-            </c:forEach>
-        </c:if>
-    </ul>
-    <a href="/companies/form">New company</a>
-</body>
-</html>
+<%@ page contentType="text/html" pageEncoding="UTF-8" language="java" %>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+
+<t:layout>
+    <jsp:attribute name="title">
+      Companies
+    </jsp:attribute>
+    <jsp:attribute name="header">
+    </jsp:attribute>
+    <jsp:attribute name="footer">
+    </jsp:attribute>
+    <jsp:body>
+        <ul>
+            <c:if test="${not empty companies}">
+                <c:forEach var="company" items="${companies}">
+                    <li>
+                        <a href="/companies/${company.getId()}">${company.getId()}</a>: ${fn:escapeXml(company.getName())} <a href="/companies/${company.getId()}/form">Edit company</a>
+                    </li>
+                </c:forEach>
+            </c:if>
+        </ul>
+        <a href="/companies/form">New company</a>
+    </jsp:body>
+</t:layout>

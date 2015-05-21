@@ -47,8 +47,11 @@ public class User {
     @NotBlank(message = "This field cannot be blank")
     @Size(max = 256, message = "Content maximum length is {max} characters long")
     private String surname;
-    
+
     private int points;
+
+    public User() {
+    }
 
     public User(String username, Date birthdate, String email, Date join_date, String name, String surname) {
         this.username = username;

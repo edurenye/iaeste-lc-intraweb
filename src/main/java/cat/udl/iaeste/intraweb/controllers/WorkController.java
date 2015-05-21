@@ -1,7 +1,7 @@
 package cat.udl.iaeste.intraweb.controllers;
 
-import cat.udl.iaeste.intraweb.models.Company;
-import cat.udl.iaeste.intraweb.repositories.CompanyRepository;
+import cat.udl.iaeste.intraweb.models.Work;
+import cat.udl.iaeste.intraweb.repositories.WorkRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -19,101 +19,101 @@ import javax.validation.Valid;
  * Created by eduard on 27/04/15.
  */
 @Controller
-@RequestMapping("/companies")
-public class CompanyController {
+@RequestMapping("/works")
+public class WorkController {
 
     @Autowired
-    CompanyRepository companyRepository;
+    WorkRepository workRepository;
 
     // LIST
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-    public Iterable<Company> list(@RequestParam(required = false, defaultValue = "0") int page,
+    public Iterable<Work> list(@RequestParam(required = false, defaultValue = "0") int page,
                                   @RequestParam(required = false, defaultValue = "10") int size) {
         PageRequest request = new PageRequest(page, size);
-        return companyRepository.findAll(request).getContent();
+        return workRepository.findAll(request).getContent();
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = "text/html")
     public ModelAndView listHtml(@RequestParam(required = false, defaultValue = "0") int page,
                                  @RequestParam(required = false, defaultValue = "10") int size) {
-        return new ModelAndView("companies", "companies", list(page, size));
+        return new ModelAndView("works", "works", list(page, size));
     }
 
     // RETRIEVE
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Company retrieve(@PathVariable("id") Long id) {
-        Preconditions.checkNotNull(companyRepository.findOne(id), "Company with id %s not found", id);
-        return companyRepository.findOne(id);
+    public Work retrieve(@PathVariable("id") Long id) {
+        Preconditions.checkNotNull(workRepository.findOne(id), "Work with id %s not found", id);
+        return workRepository.findOne(id);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "text/html")
-    public ModelAndView retrieveHTML(@PathVariable("id") Long id) {
-        return new ModelAndView("company", "company", retrieve(id));
+    public ModelAndView retrieveHTML(@PathVariable( "id" ) Long id) {
+        return new ModelAndView("work", "work", retrieve(id));
     }
 
     // CREATE
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public Company create(@Valid @RequestBody Company company, HttpServletResponse response) {
-        return companyRepository.save(company);
+    public Work create(@Valid @RequestBody Work work, HttpServletResponse response) {
+        return workRepository.save(work);
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces = "text/html")
-    public String createHtml(@Valid @ModelAttribute("company") Company company, BindingResult binding, HttpServletResponse response) {
-        if (binding.hasErrors()) {
-            return "form";
+    public String createHtml(@Valid @ModelAttribute("work") Work work, BindingResult binding, HttpServletResponse response) {
+        if(binding.hasErrors()) {
+            return "workForm";
         }
-        return "redirect:/companies/" + create(company, response).getId();
+        return "redirect:/works/" + create(work, response).getId();
     }
 
     @RequestMapping(value = "/form", method = RequestMethod.GET, produces = "text/html")
     public ModelAndView createForm() {
-        Company emptyCompany = new Company();
-        return new ModelAndView("form", "company", emptyCompany);
+        Work emptyWork = new Work();
+        return new ModelAndView("workForm", "work", emptyWork);
     }
 
     // UPDATE
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public Company update(@PathVariable("id") Long id, @Valid @RequestBody Company company) {
-        Company oldCompany = companyRepository.findOne(id);
-        oldCompany.setName(company.getName());
-        oldCompany.setHeadquarters(company.getHeadquarters());
-        oldCompany.setWorkPlace(company.getWorkPlace());
-        return companyRepository.save(oldCompany);
+    public Work update(@PathVariable("id") Long id, @Valid @RequestBody Work work) {
+        Work oldWork = workRepository.findOne(id);
+        oldWork.setFinished(work.isFinished());
+        oldWork.setPoints(work.getPoints());
+        oldWork.setWorker(work.getWorker());
+        return workRepository.save(oldWork);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = "application/x-www-form-urlencoded")
     @ResponseStatus(HttpStatus.OK)
-    public String updateHTML(@PathVariable("id") Long id, @Valid @ModelAttribute("company") Company company,
+    public String updateHTML(@PathVariable("id") Long id, @Valid @ModelAttribute("work") Work work,
                              BindingResult binding) {
         if (binding.hasErrors()) {
             return "form";
         }
-        return "redirect:/companies/" + update(id, company).getId();
+        return "redirect:/works/" + update(id, work).getId();
     }
 
     // Update form
     @RequestMapping(value = "/{id}/form", method = RequestMethod.GET, produces = "text/html")
     public ModelAndView updateForm(@PathVariable("id") Long id) {
-        return new ModelAndView("form", "company", companyRepository.findOne(id));
+        return new ModelAndView("workForm", "work", workRepository.findOne(id));
     }
 
     // DELETE
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable("id") Long id) {
-        companyRepository.delete(companyRepository.findOne(id));
+        workRepository.delete(workRepository.findOne(id));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "text/html")
     @ResponseStatus(HttpStatus.OK)
     public String deleteHTML(@PathVariable("id") Long id) {
         delete(id);
-        return "redirect:/companies";
+        return "redirect:/works";
     }
 }

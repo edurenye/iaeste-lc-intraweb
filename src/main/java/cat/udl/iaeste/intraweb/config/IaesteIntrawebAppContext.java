@@ -19,6 +19,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 
 import javax.sql.DataSource;
 
@@ -76,4 +77,5 @@ public class IaesteIntrawebAppContext extends WebMvcConfigurerAdapter {
         txManager.setEntityManagerFactory(entityManagerFactory().getObject());
         return txManager;
     }
+
 }

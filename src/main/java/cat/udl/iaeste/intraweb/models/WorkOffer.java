@@ -14,11 +14,44 @@ public class WorkOffer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
+    @NotBlank(message = "This field cannot be blank")
     private int minNumWeeks;
 
+    @NotBlank(message = "This field cannot be blank")
     private int maxNumWeeks;
 
     @NotBlank(message = "This field cannot be blank")
     private String country;
+
+    public WorkOffer() {
+    }
+
+    public Long getId() {
+        return Id;
+    }
+
+    public int getMinNumWeeks() {
+        return minNumWeeks;
+    }
+
+    public void setMinNumWeeks(int minNumWeeks) {
+        this.minNumWeeks = minNumWeeks;
+    }
+
+    public int getMaxNumWeeks() {
+        return maxNumWeeks;
+    }
+
+    public void setMaxNumWeeks(int maxNumWeeks) {
+        this.maxNumWeeks = maxNumWeeks;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
 }
