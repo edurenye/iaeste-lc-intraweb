@@ -26,7 +26,6 @@ public class Company implements Serializable{
     @Size(max = 256, message = "Content maximum length is {max} characters long")
     private String name;
 
-    @NotBlank(message = "This field cannot be blank")
     @Size(max = 256, message = "Content maximum length is {max} characters long")
     private String headquarters;
 
@@ -36,7 +35,6 @@ public class Company implements Serializable{
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date foundationDate;
 
-    @NotNull
     private int phoneNumber;
 
     public Long getId() {
