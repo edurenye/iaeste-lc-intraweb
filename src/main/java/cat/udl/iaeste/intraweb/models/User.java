@@ -2,49 +2,47 @@ package cat.udl.iaeste.intraweb.models;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by eduard on 23/03/15.
  */
 
 @Entity
-public class User {
+public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
-
-    @NotBlank(message = "This field cannot be blank")
+    @NotBlank(message = "Username cannot be blank")
     @Size(max = 256, message = "Content maximum length is {max} characters long")
     private String username;
 
-    @NotBlank(message = "Email cannot be blank")
     @Email(message = "Email shoud be valid")
     private String email;
 
-    @NotBlank(message = "This field cannot be blank")
+    @URL
+    private String imageUrl;
+
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date birthdate;
 
-    @NotBlank(message = "This field cannot be blank")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date join_date;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date dismiss_date;
 
-    @NotBlank(message = "This field cannot be blank")
     @Size(max = 256, message = "Content maximum length is {max} characters long")
     private String name;
 
-    @NotBlank(message = "This field cannot be blank")
     @Size(max = 256, message = "Content maximum length is {max} characters long")
     private String surname;
 
@@ -53,22 +51,52 @@ public class User {
     public User() {
     }
 
-    public User(String username, Date birthdate, String email, Date join_date, String name, String surname) {
+    public User(String username, String email) {
         this.username = username;
-        this.birthdate = birthdate;
         this.email = email;
+    }
+
+    public User(String username, String email, Date birthdate, Date join_date, String name, String surname) {
+        this.username = username;
+        this.email = email;
+        this.birthdate = birthdate;
         this.join_date = join_date;
         this.name = name;
         this.surname = surname;
     }
 
-    public String getUsername() {
-        return username;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return AuthorityUtils.commaSeparatedStringToAuthorityList("USER");
     }
 
-    public String getEmail() {
-        return email;
+    @Override
+    public String getPassword() {
+        return null;
     }
+
+    @Override
+    public boolean isAccountNonExpired() { return true; }
+
+    @Override
+    public boolean isAccountNonLocked() { return true; }
+
+    @Override
+    public boolean isCredentialsNonExpired() { return true; }
+
+    @Override
+    public boolean isEnabled() { return true; }
+
+    @Override
+    public String getUsername() { return username; }
+
+    public String getEmail() { return email; }
+
+    public void setEmail(String email) { this.email = email; }
+
+    public String getImageUrl() { return imageUrl; }
+
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 
     public Date getBirthdate() {
         return birthdate;
@@ -76,10 +104,6 @@ public class User {
 
     public Date getJoin_date() {
         return join_date;
-    }
-
-    public Long getId() {
-        return Id;
     }
 
     public Date getDismiss_date() {
@@ -92,14 +116,6 @@ public class User {
 
     public String getSurname() {
         return surname;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public void setJoin_date(Date join_date) {

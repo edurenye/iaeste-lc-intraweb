@@ -9,7 +9,15 @@ import java.util.Date;
 @Entity
 public class Delegate extends User {
 
-    public Delegate(String username, Date birthdate, String email, Date join_date, String name, String surname) {
-        super(username, birthdate, email, join_date, name, surname);
+    public Delegate() {
+        super();
+    }
+
+    public Delegate(String username, String password, String email) {
+        super(username, email);
+    }
+
+    public Delegate(String username, String password, String email, Date birthdate, Date join_date, String name, String surname) {
+        super(username, email, birthdate, join_date, name, surname);
     }
 }

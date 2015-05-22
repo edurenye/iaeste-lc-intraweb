@@ -8,7 +8,15 @@ import java.util.Date;
  */
 @Entity
 public class SummerDelegate extends Delegate {
-    public SummerDelegate(String username, Date birthdate, String email, Date join_date, String name, String surname) {
-        super(username, birthdate, email, join_date, name, surname);
+    public SummerDelegate() {
+        super();
+    }
+
+    public SummerDelegate(String username, String password, String email) {
+        super(username, password, email);
+    }
+
+    public SummerDelegate(String username, String password, String email, Date birthdate, Date join_date, String name, String surname) {
+        super(username, password, email, birthdate, join_date, name, surname);
     }
 }

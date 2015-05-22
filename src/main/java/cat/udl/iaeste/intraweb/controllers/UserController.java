@@ -29,7 +29,7 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
-
+    // LIST
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     public Iterable<User> list(@RequestParam(required = false, defaultValue = "0") int page,
@@ -58,7 +58,7 @@ public class UserController {
         if (binding.hasErrors()) {
             return "userForm";
         }
-        return "redirect:/users/" + create(user, response).getId();
+        return "redirect:/users/" + create(user, response).getUsername();
     }
 
     @RequestMapping(value = "/form", method = RequestMethod.GET, produces = "text/html")
@@ -69,48 +69,49 @@ public class UserController {
 
 
     // RETRIEVE
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{usename}", method = RequestMethod.GET)
     @ResponseBody
-    public User retrieve(@PathVariable("id") Long id) {
-        logger.info("Retrieving user {}", id);
-        Preconditions.checkNotNull(userRepository.findOne(id), "User with id %s not found", id);
-        return userRepository.findOne(id);
+    public User retrieve(@PathVariable("username") String username) {
+        logger.info("Retrieving user {}", username);
+        Preconditions.checkNotNull(userRepository.findOne(username), "User with username %s not found", username);
+        return userRepository.findOne(username);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "text/html")
-    public ModelAndView retrieveHTML(@PathVariable("id") Long id) {
-        return new ModelAndView("user", "user", retrieve(id));
+    @RequestMapping(value = "/{username}", method = RequestMethod.GET, produces = "text/html")
+    public ModelAndView retrieveHTML(@PathVariable("username") String username) {
+        return new ModelAndView("user", "user", retrieve(username));
     }
 
 
     // UPDATE
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{username}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public User update(@PathVariable("id") Long id, @Valid @RequestBody User user) {
-        User oldUser = userRepository.findOne(id);
+    public User update(@PathVariable("username") String username, @Valid @RequestBody User user) {
+        User oldUser = userRepository.findOne(username);
         oldUser.setName(user.getName());
         oldUser.setBirthdate(user.getBirthdate());
         oldUser.setEmail(user.getEmail());
         oldUser.setJoin_date(user.getJoin_date());
         oldUser.setSurname(user.getSurname());
+        oldUser.setDismiss_date(user.getDismiss_date());
         return userRepository.save(oldUser);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = "application/x-www-form-urlencoded")
+    @RequestMapping(value = "/{username}", method = RequestMethod.PUT, consumes = "application/x-www-form-urlencoded")
     @ResponseStatus(HttpStatus.OK)
-    public String updateHTML(@PathVariable("id") Long id, @Valid @ModelAttribute("user") User user,
+    public String updateHTML(@PathVariable("username") String username, @Valid @ModelAttribute("user") User user,
                              BindingResult binding) {
         if (binding.hasErrors()) {
             return "userForm";
         }
-        return "redirect:/users/" + update(id, user).getId();
+        return "redirect:/users/" + update(username, user).getUsername();
     }
 
     // Update form
-    @RequestMapping(value = "/{id}/form", method = RequestMethod.GET, produces = "text/html")
-    public ModelAndView updateForm(@PathVariable("id") Long id) {
-        return new ModelAndView("userForm", "user", userRepository.findOne(id));
+    @RequestMapping(value = "/{username}/form", method = RequestMethod.GET, produces = "text/html")
+    public ModelAndView updateForm(@PathVariable("username") String username) {
+        return new ModelAndView("userForm", "user", userRepository.findOne(username));
     }
 
 }

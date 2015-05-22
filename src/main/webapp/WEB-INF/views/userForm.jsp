@@ -15,10 +15,10 @@
 </head>
 <body>
 <c:choose>
-    <c:when test="${user.getId()>=0}">
+    <c:when test="${user.getUsername()>=0}">
         <h3>Update User</h3>
         <c:set var="method" value="PUT"/>
-        <c:set var="action" value="/users/${user.getId()}"/>
+        <c:set var="action" value="/users/${user.getUsername()}"/>
     </c:when>
     <c:otherwise>
         <h3>Create User</h3>

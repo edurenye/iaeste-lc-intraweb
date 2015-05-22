@@ -44,7 +44,7 @@ public class XQueryHelper {
             xqds = (XQDataSource) Class.forName("net.sf.saxon.xqj.SaxonXQDataSource").newInstance();
             this.conn = xqds.getConnection();
             companiesXQ = "declare variable $doc := doc(\"https://api.opencorporates.com/v0.4/companies/search?q="
-                    + company + "&amp;format=xml\");"
+                    + company + "&amp;jurisdiction_code=es&amp;format=xml\");"
                     + "for $c in $doc//company\n"
                     + "where $c/jurisdiction-code =\"es\""
                     + "return \n"

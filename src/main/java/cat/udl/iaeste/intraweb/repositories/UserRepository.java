@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by eduard on 23/03/15.
  */
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, String> {
 
     User findUserByUsername(@Param("username") String username);
     User findUserByEmail(@Param("email") String email);

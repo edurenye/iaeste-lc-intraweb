@@ -14,10 +14,16 @@
     <title>User</title>
 </head>
 <body>
-    <h3>User:</h3>
-        <p>${fn:escapeXml(user.getUsername())}</p>
-        <p>${fn:escapeXml(user.getEmail())}</p>
-        <p>${fn:escapeXml(user.getBirthdate())}</p>
-    <a href="/users">Return to list</a>
+
+<p><a href="/api/users">Users</a></p>
+
+<c:if test="${not empty user}">
+    <h2>User ${user.getUsername()}</h2>
+    <c:if test="${not empty user.getEmail()}">
+        <p>E-mail: ${user.getEmail()}</p>
+    </c:if>
+    <p>${fn:escapeXml(user.getBirthdate())}</p>
+</c:if>
+<a href="/users">Return to list</a>
 </body>
 </html>
