@@ -92,7 +92,7 @@ public class WorkController {
     public String updateHTML(@PathVariable("id") Long id, @Valid @ModelAttribute("work") Work work,
                              BindingResult binding) {
         if (binding.hasErrors()) {
-            return "form";
+            return "workForm";
         }
         return "redirect:/works/" + update(id, work).getId();
     }

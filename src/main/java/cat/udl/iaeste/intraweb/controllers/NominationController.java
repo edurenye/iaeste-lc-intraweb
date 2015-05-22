@@ -68,7 +68,7 @@ public class NominationController {
     @RequestMapping(method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces = "text/html")
     public String createHtml(@Valid @ModelAttribute("nomination") Nomination nomination, BindingResult binding, HttpServletResponse response) {
         if(binding.hasErrors()) {
-            return "form";
+            return "nominationForm";
         }
         return "redirect:/nominations/" + create(nomination, response).getId();
     }
@@ -97,7 +97,7 @@ public class NominationController {
     public String updateHTML(@PathVariable("id") Long id, @Valid @ModelAttribute("nomination") Nomination nomination,
                              BindingResult binding) {
         if (binding.hasErrors()) {
-            return "form";
+            return "nominationForm";
         }
         return "redirect:/nominations/" + update(id, nomination).getId();
     }

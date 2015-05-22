@@ -51,7 +51,7 @@ public class WorkOfferController {
     @RequestMapping(method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces = "text/html")
     public String createHtml(@Valid @ModelAttribute("workOffer") WorkOffer workOffer, BindingResult binding, HttpServletResponse response) {
         if (binding.hasErrors()) {
-            return "form";
+            return "workOfferForm";
         }
         return "redirect:/workOffers/" + create(workOffer, response).getId();
     }
@@ -92,7 +92,7 @@ public class WorkOfferController {
     public String updateHTML(@PathVariable("id") Long id, @Valid @ModelAttribute("workOffer") WorkOffer workOffer,
                              BindingResult binding) {
         if (binding.hasErrors()) {
-            return "form";
+            return "workOfferForm";
         }
         return "redirect:/workOffers/" + update(id, workOffer).getId();
     }

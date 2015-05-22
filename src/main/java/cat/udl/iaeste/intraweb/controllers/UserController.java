@@ -102,7 +102,7 @@ public class UserController {
     public String updateHTML(@PathVariable("id") Long id, @Valid @ModelAttribute("user") User user,
                              BindingResult binding) {
         if (binding.hasErrors()) {
-            return "form";
+            return "userForm";
         }
         return "redirect:/users/" + update(id, user).getId();
     }

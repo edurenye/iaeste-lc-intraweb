@@ -18,7 +18,9 @@ import com.google.common.base.Preconditions;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by eduard on 27/04/15.
@@ -70,7 +72,7 @@ public class CompanyController {
     @RequestMapping(method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded", produces = "text/html")
     public String createHtml(@Valid @ModelAttribute("company") Company company, BindingResult binding, HttpServletResponse response) {
         if (binding.hasErrors()) {
-            return "form";
+            return "companyForm";
         }
         return "redirect:/companies/" + create(company, response).getId();
     }
@@ -98,7 +100,7 @@ public class CompanyController {
     public String updateHTML(@PathVariable("id") Long id, @Valid @ModelAttribute("company") Company company,
                              BindingResult binding) {
         if (binding.hasErrors()) {
-            return "form";
+            return "companyForm";
         }
         return "redirect:/companies/" + update(id, company).getId();
     }
@@ -132,14 +134,28 @@ public class CompanyController {
         if(companyRepository.findCompanyByName(name) == null){
             XQueryHelper x = new XQueryHelper(name);
             c = x.getCompanies();
-            System.out.println(c.get(0).getName());
-            for(Company company:c){
-                companyRepository.save(company);
+            List<Company> supportList = new ArrayList<>();
+            for (Company elem : c) {
+                if (companyRepository.findCompanyByName(elem.getName()) != null) {
+                    name = elem.getName();
+                    supportList.add(elem);
+                }
             }
+            for (Company elem : supportList) {
+                c.remove(elem);
+            }
+            if (c.isEmpty()) {
+                Company company = companyRepository.findCompanyByName(name);
+                if (company != null) {
+                    return new ModelAndView("companyForm", "company", companyRepository.findCompanyByName(name));
+                }
+            }
+            Map model = new HashMap<String, Object>();
+            model.put("results", c);
+            return new ModelAndView("companyResults", model);
         } else {
-            c.add(companyRepository.findCompanyByName(name));
+            return new ModelAndView("companyForm", "company", companyRepository.findCompanyByName(name));
         }
-        return new ModelAndView("companyResults", "company", c);
     }
 
 }
