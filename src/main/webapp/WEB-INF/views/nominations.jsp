@@ -17,11 +17,11 @@
     <c:if test="${not empty nominations}">
         <c:forEach var="nomination" items="${nominations}">
             <li>
-                <a href="/nominations/${nomination.getId()}">${nomination.getId()}</a>: ${fn:escapeXml(nomination.getName())} <a href="/nominations/${nomination.getId()}/form">Edit nomination</a>
+                <a href="/api/nominations/${nomination.getId()}">${nomination.getId()}</a>: ${fn:escapeXml(nomination.getName())} <a href="/api/nominations/${nomination.getId()}/form">Edit nomination</a>
             </li>
         </c:forEach>
     </c:if>
 </ul>
-<a href="/nominations/form">New nomination</a>
+<a href="/api/nominations/form">New nomination</a>
 </body>
 </html>

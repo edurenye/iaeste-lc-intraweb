@@ -14,16 +14,12 @@
 
 <sec:authorize access="isAnonymous()">
     <!-- Social Sign In Buttons -->
-    <p>
-        <a href="${pageContext.request.contextPath}/auth/twitter">
-            <img src="https://g.twimg.com/dev/sites/default/files/images_documentation/sign-in-with-twitter-gray.png"/>
-        </a>
-    </p>
-    <p>
-        <a href="${pageContext.request.contextPath}/auth/facebook">
-            <img src="http://www.birthdaycomp.com/public/images/new_login.png"/>
-        </a>
-    </p>
+    <form action="<c:url value="/api/connect/twitter"/>" method="POST">
+        <p><input type="submit" value="Connect with Twitter"/></p>
+    </form>
+    <form action="<c:url value="/api/connect/facebook"/>" method="POST">
+        <p><input type="submit" value="Connect with Facebook"/></p>
+    </form>
 </sec:authorize>
 
 <sec:authorize access="isAuthenticated()">

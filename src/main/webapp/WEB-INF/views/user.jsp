@@ -15,7 +15,7 @@
 </head>
 <body>
 
-<p><a href="/api/users">Users</a></p>
+<h1>Users</h1>
 
 <c:if test="${not empty user}">
     <h2>User ${user.getUsername()}</h2>
@@ -24,6 +24,6 @@
     </c:if>
     <p>${fn:escapeXml(user.getBirthdate())}</p>
 </c:if>
-<a href="/users">Return to list</a>
+<a href="/api/users">Return to list</a>
 </body>
 </html>

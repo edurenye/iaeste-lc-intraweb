@@ -26,6 +26,6 @@
         <p>${fn:escapeXml(company.getWorkPlace())}</p>
         <p>${fn:escapeXml(company.getFoundationDate())}</p>
         <p>${fn:escapeXml(company.getPhoneNumber())}</p>
-        <a href="/companies">Return to list</a>
+        <a href="/api/companies">Return to list</a>
     </jsp:body>
 </t:layout>

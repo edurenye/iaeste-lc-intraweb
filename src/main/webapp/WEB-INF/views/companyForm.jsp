@@ -18,13 +18,13 @@
     <c:when test="${company.getId()>=0}">
         <h3>Update Company</h3>
         <c:set var="method" value="PUT"/>
-        <c:set var="action" value="/companies/${company.getId()}"/>
+        <c:set var="action" value="/api/companies/${company.getId()}"/>
         <c:set var="exist" value="${true}"/>
     </c:when>
     <c:otherwise>
         <h3>Create Company</h3>
         <c:set var="method" value="POST"/>
-        <c:set var="action" value="/companies"/>
+        <c:set var="action" value="/api/companies"/>
         <c:set var="exist" value="${false}"/>
     </c:otherwise>
 </c:choose>
@@ -57,7 +57,7 @@
 </form:form>
 
 <c:if test="${!exist}">
-    <form:form method="GET" action="results" modelAttribute="company">
+    <form:form method="GET" action="/api/results" modelAttribute="company">
         <table>
             <tr>
                 <td><form:label path="name">Search company by name</form:label></td>

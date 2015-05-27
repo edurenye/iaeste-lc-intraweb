@@ -51,18 +51,8 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String username, String email) {
+    public User(String username) {
         this.username = username;
-        this.email = email;
-    }
-
-    public User(String username, String email, Date birthdate, Date join_date, String name, String surname) {
-        this.username = username;
-        this.email = email;
-        this.birthdate = birthdate;
-        this.join_date = join_date;
-        this.name = name;
-        this.surname = surname;
     }
 
     @Override
@@ -136,5 +126,10 @@ public class User implements UserDetails {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    @Override
+    public String toString() {
+        return getUsername();
     }
 }

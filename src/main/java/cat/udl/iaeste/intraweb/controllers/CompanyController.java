@@ -74,7 +74,7 @@ public class CompanyController {
         if (binding.hasErrors()) {
             return "companyForm";
         }
-        return "redirect:/companies/" + create(company, response).getId();
+        return "redirect:/api/companies/" + create(company, response).getId();
     }
 
     @RequestMapping(value = "/form", method = RequestMethod.GET, produces = "text/html")
@@ -122,7 +122,7 @@ public class CompanyController {
     @ResponseStatus(HttpStatus.OK)
     public String deleteHTML(@PathVariable("id") Long id) {
         delete(id);
-        return "redirect:/companies";
+        return "redirect:/api/companies";
     }
 
     // SEARCH

@@ -17,11 +17,11 @@
     <c:if test="${not empty works}">
         <c:forEach var="work" items="${works}">
             <li>
-                <a href="/works/${work.getId()}">${work.getId()}</a>: ${fn:escapeXml(work.getName())} <a href="/works/${work.getId()}/form">Edit work</a>
+                <a href="/api/works/${work.getId()}">${work.getId()}</a>: ${fn:escapeXml(work.getName())} <a href="/api/works/${work.getId()}/form">Edit work</a>
             </li>
         </c:forEach>
     </c:if>
 </ul>
-<a href="/works/form">New work</a>
+<a href="/api/works/form">New work</a>
 </body>
 </html>

@@ -18,12 +18,12 @@
     <c:when test="${user.getUsername()>=0}">
         <h3>Update User</h3>
         <c:set var="method" value="PUT"/>
-        <c:set var="action" value="/users/${user.getUsername()}"/>
+        <c:set var="action" value="/api/users/${user.getUsername()}"/>
     </c:when>
     <c:otherwise>
         <h3>Create User</h3>
         <c:set var="method" value="POST"/>
-        <c:set var="action" value="/users"/>
+        <c:set var="action" value="/api/users"/>
     </c:otherwise>
 </c:choose>
 <form:form method="${method}" action="${action}" modelAttribute="user">

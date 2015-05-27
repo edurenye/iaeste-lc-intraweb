@@ -2,6 +2,7 @@ package cat.udl.iaeste.intraweb.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.social.UserIdSource;
 import org.springframework.social.config.annotation.ConnectionFactoryConfigurer;
@@ -21,6 +22,7 @@ import org.springframework.social.twitter.connect.TwitterConnectionFactory;
  */
 @Configuration
 @EnableSocial
+@PropertySource("classpath:application.properties")
 public class SocialConfig implements SocialConfigurer {
 
     @Override

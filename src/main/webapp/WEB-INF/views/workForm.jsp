@@ -18,12 +18,12 @@
     <c:when test="${work.getId()>=0}">
         <h3>Update Work</h3>
         <c:set var="method" value="PUT"/>
-        <c:set var="action" value="/works/${work.getId()}"/>
+        <c:set var="action" value="/api/works/${work.getId()}"/>
     </c:when>
     <c:otherwise>
         <h3>Create Work</h3>
         <c:set var="method" value="POST"/>
-        <c:set var="action" value="/works"/>
+        <c:set var="action" value="/api/works"/>
     </c:otherwise>
 </c:choose>
 <form:form method="${method}" action="${action}" modelAttribute="work">

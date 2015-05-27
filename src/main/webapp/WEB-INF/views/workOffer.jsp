@@ -18,6 +18,6 @@
         <p>${fn:escapeXml(workOffer.getMinNumWeeks())}</p>
         <p>${fn:escapeXml(workOffer.getMaxNumWeeks())}</p>
         <p>${fn:escapeXml(workOffer.getCountry())}</p>
-    <a href="/workOffers">Return to list</a>
+    <a href="/api/workOffers">Return to list</a>
 </body>
 </html>

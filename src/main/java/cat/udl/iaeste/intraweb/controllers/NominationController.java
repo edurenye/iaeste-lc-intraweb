@@ -70,7 +70,7 @@ public class NominationController {
         if(binding.hasErrors()) {
             return "nominationForm";
         }
-        return "redirect:/nominations/" + create(nomination, response).getId();
+        return "redirect:/api/nominations/" + create(nomination, response).getId();
     }
 
     @RequestMapping(value = "/form", method = RequestMethod.GET, produces = "text/html")
@@ -99,7 +99,7 @@ public class NominationController {
         if (binding.hasErrors()) {
             return "nominationForm";
         }
-        return "redirect:/nominations/" + update(id, nomination).getId();
+        return "redirect:/api/nominations/" + update(id, nomination).getId();
     }
 
     // Update form
@@ -119,6 +119,6 @@ public class NominationController {
     @ResponseStatus(HttpStatus.OK)
     public String deleteHTML(@PathVariable("id") Long id) {
         delete(id);
-        return "redirect:/nominations";
+        return "redirect:/api/nominations";
     }
 }

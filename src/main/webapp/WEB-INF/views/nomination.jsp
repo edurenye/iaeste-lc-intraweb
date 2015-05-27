@@ -18,6 +18,6 @@
         <p>${fn:escapeXml(nomination.getNominated())}</p>
         <p>${fn:escapeXml(nomination.getWorkOffer())}</p>
         <p>${fn:escapeXml(nomination.getOfficerDelegate())}</p>
-        <a href="/nominations">Return to list</a>
+        <a href="/api/nominations">Return to list</a>
     </body>
 </html>

@@ -69,6 +69,6 @@
                 <h1>This company isn't registered in Spain</h1>
             </c:otherwise>
         </c:choose>
-        <a href="/companies">Return to list</a>
+        <a href="/api/companies">Return to list</a>
     </jsp:body>
 </t:layout>

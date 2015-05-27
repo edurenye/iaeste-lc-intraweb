@@ -8,15 +8,12 @@ import java.util.Date;
  */
 @Entity
 public class OfficerDelegate extends Delegate {
+
     public OfficerDelegate() {
-        super();
     }
 
-    public OfficerDelegate(String username, String password, String email) {
-        super(username, password, email);
+    public OfficerDelegate(String username) {
+        super(username);
     }
 
-    public OfficerDelegate(String username, String password, String email, Date birthdate, Date join_date, String name, String surname) {
-        super(username, password, email, birthdate, join_date, name, surname);
-    }
 }

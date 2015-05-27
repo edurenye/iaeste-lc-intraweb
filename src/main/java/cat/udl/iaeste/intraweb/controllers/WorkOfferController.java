@@ -53,7 +53,7 @@ public class WorkOfferController {
         if (binding.hasErrors()) {
             return "workOfferForm";
         }
-        return "redirect:/workOffers/" + create(workOffer, response).getId();
+        return "redirect:/api/workOffers/" + create(workOffer, response).getId();
     }
 
     @RequestMapping(value = "/form", method = RequestMethod.GET, produces = "text/html")
@@ -94,7 +94,7 @@ public class WorkOfferController {
         if (binding.hasErrors()) {
             return "workOfferForm";
         }
-        return "redirect:/workOffers/" + update(id, workOffer).getId();
+        return "redirect:/api/workOffers/" + update(id, workOffer).getId();
     }
 
     // Update form

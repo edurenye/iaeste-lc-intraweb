@@ -17,11 +17,11 @@
     <c:if test="${not empty users}">
         <c:forEach var="user" items="${users}">
             <li>
-                <a href="/users/${user.getUsername()}">${user.getUsername()}</a>: ${fn:escapeXml(user.getName())} <a href="/users/${user.getUsername()}/form">Edit user</a>
+                <a href="/api/users/${user.getUsername()}">${user.getUsername()}</a>: ${fn:escapeXml(user.getName())} <a href="/api/users/${user.getUsername()}/form">Edit user</a>
             </li>
         </c:forEach>
     </c:if>
 </ul>
-<a href="/users/form">New user</a>
+<a href="/api/users/form">New user</a>
 </body>
 </html>

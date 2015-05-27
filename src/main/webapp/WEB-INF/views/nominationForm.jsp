@@ -18,12 +18,12 @@
     <c:when test="${nomination.getId()>=0}">
         <h3>Update Nomination</h3>
         <c:set var="method" value="PUT"/>
-        <c:set var="action" value="/nominations/${nomination.getId()}"/>
+        <c:set var="action" value="/api/nominations/${nomination.getId()}"/>
     </c:when>
     <c:otherwise>
         <h3>Create Nomination</h3>
         <c:set var="method" value="POST"/>
-        <c:set var="action" value="/nominations"/>
+        <c:set var="action" value="/api/nominations"/>
     </c:otherwise>
 </c:choose>
 <form:form method="${method}" action="${action}" modelAttribute="nomination">

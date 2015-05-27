@@ -3,7 +3,6 @@ package cat.udl.iaeste.intraweb.init;
 import javax.servlet.*;
 
 import cat.udl.iaeste.intraweb.config.IaesteIntrawebAppContext;
-import cat.udl.iaeste.intraweb.filters.SimpleCORSFilter;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
@@ -22,18 +21,15 @@ public class Initializer implements WebApplicationInitializer {
 
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("dispatcher", new DispatcherServlet(rootContext));
         dispatcher.setLoadOnStartup(1);
-        dispatcher.addMapping("/");
+        dispatcher.addMapping("/api/*");
 
         EnumSet<DispatcherType> dispatcherTypes = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD);
 
         FilterRegistration.Dynamic security = servletContext.addFilter("springSecurityFilterChain", new DelegatingFilterProxy());
-        security.addMappingForUrlPatterns(dispatcherTypes, true, "/*");
-
-        FilterRegistration.Dynamic cors = servletContext.addFilter("simpleCORSFilter", new SimpleCORSFilter());
-        cors.addMappingForUrlPatterns(dispatcherTypes, true, "/*");
+        security.addMappingForUrlPatterns(dispatcherTypes, true, "/api/*");
 
         FilterRegistration.Dynamic httpMethod = servletContext.addFilter("httpMethodFilter", new HiddenHttpMethodFilter());
-        httpMethod.addMappingForUrlPatterns(dispatcherTypes, true, "/*");
+        httpMethod.addMappingForUrlPatterns(dispatcherTypes, true, "/api/*");
 
         servletContext.addListener(new ContextLoaderListener(rootContext));
     }

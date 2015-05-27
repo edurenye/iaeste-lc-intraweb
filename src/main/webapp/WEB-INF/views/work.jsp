@@ -18,6 +18,6 @@
 <p>${fn:escapeXml(work.getPoints())}</p>
 <p>${fn:escapeXml(work.getWorker())}</p>
 <p>${fn:escapeXml(work.isFinished())}</p>
-<a href="/works">Return to list</a>
+<a href="/api/works">Return to list</a>
 </body>
 </html>

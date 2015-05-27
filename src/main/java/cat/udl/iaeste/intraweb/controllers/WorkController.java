@@ -37,7 +37,7 @@ public class WorkController {
     @RequestMapping(method = RequestMethod.GET, produces = "text/html")
     public ModelAndView listHtml(@RequestParam(required = false, defaultValue = "0") int page,
                                  @RequestParam(required = false, defaultValue = "10") int size) {
-        return new ModelAndView("works", "works", list(page, size));
+        return new ModelAndView("works", "work", list(page, size));
     }
 
     // RETRIEVE
@@ -66,7 +66,7 @@ public class WorkController {
         if(binding.hasErrors()) {
             return "workForm";
         }
-        return "redirect:/works/" + create(work, response).getId();
+        return "redirect:/api/works/" + create(work, response).getId();
     }
 
     @RequestMapping(value = "/form", method = RequestMethod.GET, produces = "text/html")
@@ -94,7 +94,7 @@ public class WorkController {
         if (binding.hasErrors()) {
             return "workForm";
         }
-        return "redirect:/works/" + update(id, work).getId();
+        return "redirect:/api/works/" + update(id, work).getId();
     }
 
     // Update form
@@ -114,6 +114,6 @@ public class WorkController {
     @ResponseStatus(HttpStatus.OK)
     public String deleteHTML(@PathVariable("id") Long id) {
         delete(id);
-        return "redirect:/works";
+        return "redirect:/api/works";
     }
 }
