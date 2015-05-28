@@ -37,7 +37,7 @@ public class UserController {
     @RequestMapping(method = RequestMethod.GET, produces = "text/html")
     public ModelAndView listHtml(@RequestParam(required = false, defaultValue = "0") int page,
                                  @RequestParam(required = false, defaultValue = "10") int size) {
-        return new ModelAndView("users", "user", list(page, size));
+        return new ModelAndView("users", "users", list(page, size));
     }
 
     // RETRIEVE
