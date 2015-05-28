@@ -22,7 +22,7 @@ import java.security.Principal;
 public class UserController {
     final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    @Autowired UserRepository       userRepository;
+    @Autowired UserRepository userRepository;
 
     // LIST
     @RequestMapping(method = RequestMethod.GET)
