@@ -16,8 +16,8 @@
             <c:if test="${not empty users}">
                 <c:forEach var="user" items="${users}">
                     <li>
-                        <a href="/api/users/${user.getUsername()}">${user.getUsername()}</a>: ${fn:escapeXml(user.getName())}
-                        <a href="/api/users/${user.getUsername()}/form">Edit user</a>
+                        <a href="/api/users/${fn:escapeXml(user.getEncodedUsername())}">${fn:escapeXml(user.getUsername())}</a>: ${fn:escapeXml(user.getName())}
+                        <a href="/api/users/${fn:escapeXml(user.getEncodedUsername())}/form">Edit user</a>
                     </li>
                 </c:forEach>
             </c:if>

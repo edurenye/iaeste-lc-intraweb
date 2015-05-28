@@ -57,7 +57,7 @@
         </form:form>
 
         <c:if test="${!exist}">
-            <form:form method="GET" action="/api/results" modelAttribute="company">
+            <form:form method="GET" action="/api/companies/results" modelAttribute="company">
                 <table>
                     <tr>
                         <td><form:label path="name">Search company by name</form:label></td>

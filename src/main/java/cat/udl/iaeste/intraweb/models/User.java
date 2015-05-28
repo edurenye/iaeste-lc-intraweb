@@ -10,6 +10,8 @@ import org.springframework.security.core.authority.AuthorityUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Collection;
 import java.util.Date;
 
@@ -79,6 +81,16 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() { return username; }
+
+    public String getEncodedUsername() {
+        try {
+            return  URLEncoder.encode(username, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } finally {
+            return username;
+        }
+    }
 
     public String getEmail() { return email; }
 

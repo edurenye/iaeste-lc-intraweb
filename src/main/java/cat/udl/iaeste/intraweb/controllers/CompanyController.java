@@ -102,7 +102,7 @@ public class CompanyController {
         if (binding.hasErrors()) {
             return "companyForm";
         }
-        return "redirect:/companies/" + update(id, company).getId();
+        return "redirect:/api/companies/" + update(id, company).getId();
     }
 
     // Update form

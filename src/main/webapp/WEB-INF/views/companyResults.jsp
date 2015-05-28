@@ -18,7 +18,7 @@
                 <ul>
                     <c:forEach var="company" items="${results}">
                         <li>
-                            <form id="company" action="/companies" method="POST">
+                            <form id="company" action="/api/companies" method="POST">
                                 <table>
                                     <tr>
                                         <td><label for="name">Name</label></td>
