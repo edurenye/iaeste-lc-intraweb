@@ -49,7 +49,7 @@
             };
 
             this.loadCompany = function (company) {
-                this.newCompany = company;
+                companyCtrl.newCompany = company;
 
             };
 
@@ -57,7 +57,7 @@
                 $http.post(this.COMPANIES_API, this.newCompany)
                     .then(function () {
                         companyCtrl.listCompanies();
-                        this.newCompany = {};
+                        companyCtrl.newCompany = {};
                     });
 
             };
@@ -96,22 +96,26 @@
 
     app.controller("UsersController", ["$http",
         function ($http) {
-            this.USERS_API = "../api/users";
-            this.loading = false;
             var userCtrl = this;
+            this.LOGIN_API = "../api/login";
+            this.USERS_API = "../api/users";
 
             this.listUsers = function () {
                 this.loading = true;
                 userCtrl.users = {};
                 $http.get(this.USERS_API)
                     .success(function (data) {
-                        if (data != "") {
+                        if (typeof(data[0].username) != "undefined") {
                             userCtrl.users = data;
                         }
-                    }).then(function () {
-                        this.loading = false;
-                    });
-            }
+                        else {
+                            alert("You must login first");
+                            window.location = userCtrl.LOGIN_API;
+                        }
+                    }).error(function () {
+                        alert("error")
+                    })
+            };
         }]);
 
     app.directive("users", function () {
@@ -145,7 +149,7 @@
                 $http.get(this.WORK_OFFERS_API)
                     .success(function (data) {
                         if (data != "") {
-                            workOfferCtrl.workOffers= data;
+                            workOfferCtrl.workOffers = data;
                             console.log(workOfferCtrl.workOffers);
                         }
                     })
