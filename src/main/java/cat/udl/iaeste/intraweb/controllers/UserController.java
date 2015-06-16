@@ -7,10 +7,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.security.Principal;
 
 /**
@@ -59,12 +62,56 @@ public class UserController {
     @ResponseBody
     public User user(Principal user) {
         logger.info("Retrieving current logged in user {}", user.getName());
-        return user(user);
+        return userRepository.findUserByUsername(user.getName());
     }
 
     @RequestMapping(value = "/current", method = RequestMethod.GET, produces = "text/html")
     public ModelAndView userHTML( Principal user) {
         return new ModelAndView("user", "user", user(user));
+    }
+
+    // UPDATE
+    @RequestMapping(value = "/{username}", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public User update(@PathVariable("username") String username, @Valid @RequestBody User user) {
+        User oldUser = userRepository.findOne(username);
+        oldUser.setBirthdate(user.getBirthdate());
+        oldUser.setEmail(user.getEmail());
+        oldUser.setSurname(user.getSurname());
+        oldUser.setJoin_date(user.getJoin_date());
+        return userRepository.save(oldUser);
+    }
+
+    @RequestMapping(value = "/{username}", method = RequestMethod.PUT, consumes = "application/x-www-form-urlencoded")
+    @ResponseStatus(HttpStatus.OK)
+    public String updateHTML(@PathVariable("username") String username, @Valid @ModelAttribute("user") User user,
+                             BindingResult binding) {
+        user.setUsername(username);
+        if (binding.hasErrors()) {
+            return "userForm";
+        }
+        return "redirect:/api/users/" + update(username, user).getUsername();
+    }
+
+    // Update form
+    @RequestMapping(value = "/{username}/form", method = RequestMethod.GET, produces = "text/html")
+    public ModelAndView updateForm(@PathVariable("username") String username) {
+        return new ModelAndView("userForm", "user", userRepository.findOne(username));
+    }
+
+    // DELETE
+    @RequestMapping(value = "/{username}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.OK)
+    public void delete(@PathVariable("username") String username) {
+        userRepository.delete(userRepository.findOne(username));
+    }
+
+    @RequestMapping(value = "/{username}", method = RequestMethod.DELETE, produces = "text/html")
+    @ResponseStatus(HttpStatus.OK)
+    public String deleteHTML(@PathVariable("username") String username) {
+        delete(username);
+        return "redirect:/api/users";
     }
 }
 

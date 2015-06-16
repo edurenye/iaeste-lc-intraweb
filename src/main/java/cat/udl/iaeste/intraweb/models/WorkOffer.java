@@ -3,6 +3,7 @@ package cat.udl.iaeste.intraweb.models;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by eduard on 20/04/15.
@@ -14,10 +15,10 @@ public class WorkOffer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
-    @NotBlank(message = "This field cannot be blank")
+    @NotNull
     private int minNumWeeks;
 
-    @NotBlank(message = "This field cannot be blank")
+    @NotNull
     private int maxNumWeeks;
 
     @NotBlank(message = "This field cannot be blank")

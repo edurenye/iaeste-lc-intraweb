@@ -33,14 +33,11 @@ public class User implements UserDetails {
     @URL
     private String imageUrl;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private Date birthdate;
+    private String birthdate;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private Date join_date;
+    private String join_date;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private Date dismiss_date;
+    private String dismiss_date;
 
     @Size(max = 256, message = "Content maximum length is {max} characters long")
     private String name;
@@ -100,15 +97,15 @@ public class User implements UserDetails {
 
     public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 
-    public Date getBirthdate() {
+    public String getBirthdate() {
         return birthdate;
     }
 
-    public Date getJoin_date() {
+    public String getJoin_date() {
         return join_date;
     }
 
-    public Date getDismiss_date() {
+    public String getDismiss_date() {
         return dismiss_date;
     }
 
@@ -120,15 +117,19 @@ public class User implements UserDetails {
         return surname;
     }
 
-    public void setJoin_date(Date join_date) {
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setJoin_date(String join_date) {
         this.join_date = join_date;
     }
 
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
     }
 
-    public void setDismiss_date(Date dismiss_date) {
+    public void setDismiss_date(String dismiss_date) {
         this.dismiss_date = dismiss_date;
     }
 
