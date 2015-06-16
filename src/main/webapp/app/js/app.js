@@ -1,11 +1,10 @@
 (function () {
-    var app = angular.module("companiesJS", ["companyTab", "companyForm", "loginForm"]);
+    var app = angular.module("companiesJS", ["companyForm", "companyTab", "loginForm"]);
 
     app.controller("CompaniesController", ["$http",
         function ($http) {
             this.COMPANIES_API = "../api/companies";
             this.loading = false;
-            this.found = true;
             this.newCompany = {};
             var companyCtrl = this;
             this.searchText = "";
@@ -17,10 +16,6 @@
             this.noCompany = function () {
                 return this.companies === undefined;
             };
-
-            this.isFound = function () {
-                return this.found;
-            }
 
             this.listCompanies = function () {
                 this.loading = true;
@@ -42,7 +37,6 @@
                         if (data != "") {
                             companyCtrl.companies = data;
                         } else {
-                            companyCtrl.found = false;
                             $http.get(companyCtrl.COMPANIES_API + "/results/json?name=" + companyCtrl.searchText)
                                 .success(function (data) {
                                     if (data != "") {
@@ -54,11 +48,16 @@
 
             };
 
+            this.loadCompany = function (company) {
+                this.newCompany = company;
+
+            };
+
             this.addCompany = function () {
                 $http.post(this.COMPANIES_API, this.newCompany)
                     .then(function () {
                         companyCtrl.listCompanies();
-                        companyCtrl.newCompany = {};
+                        this.newCompany = {};
                     });
 
             };
@@ -95,25 +94,82 @@
         };
     });
 
-    app.controller("UsersController", ["$http()",
+    app.controller("UsersController", ["$http",
         function ($http) {
             this.USERS_API = "../api/users";
             this.loading = false;
-            this.newCompany = {};
-            var companyCtrl = this;
+            var userCtrl = this;
 
             this.listUsers = function () {
                 this.loading = true;
-                companyCtrl.companies = {};
-                $http.get(this.COMPANIES_API)
+                userCtrl.users = {};
+                $http.get(this.USERS_API)
                     .success(function (data) {
                         if (data != "") {
-                            companyCtrl.companies = data;
+                            userCtrl.users = data;
                         }
                     }).then(function () {
                         this.loading = false;
                     });
             }
         }]);
+
+    app.directive("users", function () {
+        return {
+            restrict: "E",
+
+            templateUrl: "users.html",
+            controller: function () {
+                this.tab = 1;
+
+                this.isSet = function (checkTab) {
+                    return this.tab === checkTab;
+                };
+
+                this.setTab = function (activeTab) {
+                    this.tab = activeTab;
+                };
+            },
+            controllerAs: "tab"
+        };
+    });
+
+    app.controller("WorkoffersController", ["$http",
+        function ($http) {
+            this.WORK_OFFERS_API = "../api/workOffers";
+            var workOfferCtrl = this;
+
+            this.listWorkOffers = function () {
+                this.loading = true;
+                workOfferCtrl.workOffers = {};
+                $http.get(this.WORK_OFFERS_API)
+                    .success(function (data) {
+                        if (data != "") {
+                            workOfferCtrl.workOffers= data;
+                            console.log(workOfferCtrl.workOffers);
+                        }
+                    })
+            }
+        }]);
+
+    app.directive("workoffers", function () {
+        return {
+            restrict: "E",
+
+            templateUrl: "workoffers.html",
+            controller: function () {
+                this.tab = 1;
+
+                this.isSet = function (checkTab) {
+                    return this.tab === checkTab;
+                };
+
+                this.setTab = function (activeTab) {
+                    this.tab = activeTab;
+                };
+            },
+            controllerAs: "tab"
+        };
+    });
 
 }());
