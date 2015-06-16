@@ -7,9 +7,9 @@
 		<blockquote>Work Place: {{company.workPlace}}</blockquote>
 		<blockquote>Foundation Date: {{company.foundationDate}}</blockquote>
 		
-		<button ng-show="company.id!=null" class="btn btn-lg btn-primary" ng-click="controller.deleteCompany(company.id)">
-                <span ng-hide="controller.deleteloading()">Delete company</span>
-				<span ng-show="controller.deleteloading() "><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</span>
+		<button ng-show="company.id!=null" class="btn btn-lg btn-primary" ng-click="controller.createCompany(company.id)">
+                <span ng-hide="controller.isLoading()">Create company</span>
+				<span ng-show="controller.isLoading() "><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</span>
                
         </button>
     </div>

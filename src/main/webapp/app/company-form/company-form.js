@@ -1,7 +1,3 @@
-/**
- * Created by http://rhizomik.net/~roberto/
- */
-
 (function(){
     var app = angular.module("companyForm", [ ]);
 

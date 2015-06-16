@@ -61,6 +61,13 @@ public class CompanyController {
         return new ModelAndView("company", "company", retrieve(id));
     }
 
+    @RequestMapping(value = "/find/{name}", method = RequestMethod.GET)
+    @ResponseBody
+    public Iterable<Company> find(@PathVariable("name") String name) {
+        Preconditions.checkNotNull(companyRepository.findByNameContainingIgnoreCase(name), "Company with name %s not found", name);
+        return companyRepository.findByNameContainingIgnoreCase(name);
+    }
+
     // CREATE
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
@@ -156,6 +163,16 @@ public class CompanyController {
         } else {
             return new ModelAndView("companyForm", "company", companyRepository.findCompanyByName(name));
         }
+    }
+
+    @RequestMapping(value = "/results/json",method = RequestMethod.GET)
+    @ResponseBody
+    public List<Company> searchJson(@RequestParam(required=true) String name)throws  ClassNotFoundException, InstantiationException, IllegalAccessException {
+        logger.info("company search with content'{}'", name);
+        List<Company> companyList;
+        XQueryHelper x = new XQueryHelper(name);
+        companyList = x.getCompanies();
+        return companyList;
     }
 
 }

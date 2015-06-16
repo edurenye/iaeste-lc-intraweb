@@ -30,49 +30,24 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/app/index.html">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li ng-class="{ active:tab.isSet(1) }"><a href="" ng-click="tab.setTab(1)">Companies</a></li>
+                <li ng-class="{ active:tab.isSet(2) }"><a href="" ng-click="tab.setTab(2)">Users</a></li>
+                <li ng-class="{ active:tab.isSet(3) }"><a href="" ng-click="tab.setTab(3)">WorkOffers</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
 </nav>
 
-<div class="container" ng-controller="CompaniesController as controller">
-    <header>
-        <h1 class="text-center">IntrawebApp</h1>
-        <h3 class="text-center">The AngularJS client for Iaeste-Lc-Intraweb-Master</h3>
-        <h3>&nbsp;</h3>
-    </header>
+<header>
+    <h1 class="text-center">IntrawebApp</h1>
+    <h3 class="text-center">The AngularJS client for Iaeste-Lc-Intraweb-Master</h3>
+</header>
 
-    <div class="text-left">
-        <form class="well form-search">
-            <input type="text" ng-model="controller.searchText" class="input-medium search-query" placeholder="Keywords...">
-            <button type="submit" class="btn" ng-click="controller.searchCompany()">Search</button>
-
-            <button class="btn" ng-click="controller.listCompanies()">Get Companies List</button>
-        </form>
-    </div>
-    <div ng-repeat="company in controller.result">
-        <company-tab></company-tab>
-    </div>
-
-    <div class="text-right" ng-show="controller.noCompany()">
-        <button class="btn btn-lg btn-primary" ng-click="controller.listCompanies()">
-            <span ng-show="!controller.isLoading()">Get Companies List</span>
-            <span ng-show="controller.isLoading()"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</span>
-            
-        </button>
-    </div>
-
-    <div ng-repeat="company in controller.companies">
-        <company-tab></company-tab>
-    </div>
-    <div>
-        <h3>Add new Company</h3>
-        <company-form></company-form>
-    </div>
-</div><!-- /.container -->
+<div>
+    <companies ng-show="tab.isSet(1)"></companies>
+    <users ng-show="tab.isSet(2)"></users>
+    <workoffers ng-show="tab.isSet(3)"></workoffers>
+</div>
 
 </body>
 </html>

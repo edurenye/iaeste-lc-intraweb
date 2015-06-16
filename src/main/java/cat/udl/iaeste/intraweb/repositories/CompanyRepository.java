@@ -11,4 +11,6 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
 
     Company findCompanyByName(@Param("name") String name);
 
+    Iterable<Company> findByNameContainingIgnoreCase(String name);
+
 }
